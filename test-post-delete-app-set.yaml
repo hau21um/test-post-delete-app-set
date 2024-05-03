@@ -7,7 +7,7 @@ spec:
   generators:
   - git:
       files:
-      - path: 'application-[a-zA-Z0-9]*/app-values.yaml'
+      - path: 'application-*/app-values.yaml'
       repoURL: https://github.com/hau21um/test-post-delete-app-set.git
       revision: HEAD
   goTemplate: true

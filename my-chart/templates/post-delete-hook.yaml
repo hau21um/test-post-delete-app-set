@@ -3,7 +3,7 @@ kind: Job
 metadata:
   name: post-delte
   annotations:
-    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook: PostDelete
     argocd.argoproj.io/hook-delete-policy: HookSucceeded
 spec:
   template:
