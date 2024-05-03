@@ -23,7 +23,7 @@ spec:
       destination:
         namespace: '{{.path.basename}}'
         server: https://kubernetes.default.svc
-      project: pfx-app-cluster
+      project: default
       source:
         repoURL: https://github.com/hau21um/test-post-delete-app-set.git
         path: 'my-chart'
