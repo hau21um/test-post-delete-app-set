@@ -1,0 +1,41 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: test-post-delete-app-set
+  namespace: argocd
+spec:
+  generators:
+  - git:
+      files:
+      - path: 'application-[a-zA-Z0-9]*/app-values.yaml'
+      repoURL: https://github.com/hau21um/test-post-delete-app-set.git
+      revision: HEAD
+  goTemplate: true
+  syncPolicy:
+    preserveResourcesOnDeletion: true
+  template:
+    metadata:
+      finalizers:
+      - resources-finalizer.argocd.argoproj.io
+      name: '{{.path.basename}}'
+      namespace: argocd
+    spec:
+      destination:
+        namespace: '{{.path.basename}}'
+        server: https://kubernetes.default.svc
+      project: pfx-app-cluster
+      source:
+        path: '{{.path.basename}}'
+        repoURL: https://github.com/hau21um/test-post-delete-app-set.git
+        targetRevision: HEAD
+      syncPolicy:
+        automated:
+          allowEmpty: true
+          prune: true
+          selfHeal: true
+        syncOptions:
+        - Validate=true
+        - CreateNamespace=true
+        - PrunePropagationPolicy=foreground
+        - PruneLast=true
+        - RespectIgnoreDifferences=true
