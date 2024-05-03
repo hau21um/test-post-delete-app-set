@@ -25,9 +25,12 @@ spec:
         server: https://kubernetes.default.svc
       project: pfx-app-cluster
       source:
-        path: '{{.path.basename}}'
         repoURL: https://github.com/hau21um/test-post-delete-app-set.git
+        path: 'my-chart'
         targetRevision: HEAD
+        helm:
+          valueFiles: 
+            - ../{{.path.basename}}/app-values.yaml
       syncPolicy:
         automated:
           allowEmpty: true

@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: post-delte
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+spec:
+  template:
+    spec:
+      containers:
+      - name: post-delte
+        image: alpine
+        command:
+        - /bin/sh
+        - -c
+        - |
+          for i in 1 2 3
+          do
+            echo "`date`: I'm post-delete hook in {{ .Release.Namespace }} namespace. Cleanup $i"
+            sleep 10;
+          done
+          echo "Finished post-delete in {{ .Release.Namespace }}"
+      restartPolicy: Never
